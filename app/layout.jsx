@@ -1,4 +1,5 @@
 import '@/assets/styles/globals.css';
+import Navbar from '@/components/Navbar';
 
 export const metadata = {
   title: 'Jokies | Joke is all yours',
@@ -10,7 +11,8 @@ const MainLayout = ({ children }) => {
   return (
     <html lang="en">
       <body>
-        <div>{children}</div>
+        <Navbar />
+        <main>{children}</main>
       </body>
     </html>
   );
