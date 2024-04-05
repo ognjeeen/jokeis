@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { CgProfile } from 'react-icons/cg';
 import { FaArrowLeft, FaPaperPlane } from 'react-icons/fa';
 import { FcLikePlaceholder } from 'react-icons/fc';
+import Spinner from '@/components/Spinner';
 
 const JokePage = () => {
   const { id } = useParams();
@@ -41,6 +42,7 @@ const JokePage = () => {
   return (
     <>
       <Navbar />
+      {loading && <Spinner loading={loading} />}
       {!loading && joke && (
         <>
           <section>
