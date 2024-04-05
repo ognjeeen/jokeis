@@ -1,12 +1,12 @@
-import { FcLike } from 'react-icons/fc';
-import { FaRegCommentDots } from 'react-icons/fa';
 import Link from 'next/link';
+import { FaRegCommentDots } from 'react-icons/fa';
+import { FcLike } from 'react-icons/fc';
 
 const JokeCard = ({ joke }) => {
   return (
     <div className="relative flex justify-center">
       {/* Joke Card */}
-      <div className="rounded-xl shadow-md xl:w-3/5 lg:w-3/5 md:w-5/6 sm:w-5/6  mb-5">
+      <div className="rounded-xl shadow-md xl:w-3/5 lg:w-3/5 md:w-5/6 sm:w-5/6 mb-5">
         <div className="p-4">
           {/* Joke categories */}
           <div className="text-left mb-6">
