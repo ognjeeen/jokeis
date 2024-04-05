@@ -1,6 +1,5 @@
 [
   {
-    "_id": "1",
     "description": "Zašto je programer uvek uključen u krevetu? Jer mu je žena rekla: 'Ugasite svetlo, idi spavaj.'",
     "author": "1",
     "created_at": "2024-04-04T10:00:00",
@@ -8,17 +7,16 @@
     "category": "IT",
     "comments": [
       {
-        "user": "korisnik123",
+        "user": "10",
         "comment_text": "Haha, ovo je odlično!"
       },
       {
-        "user": "programerX",
+        "user": "9",
         "comment_text": "Prepoznajem se u ovome."
       }
     ]
   },
   {
-    "_id": "2",
     "description": "Zašto JavaScript developer nikada ne laže? Jer uvek vraća truthy vrednost!",
     "author": "2",
     "created_at": "2024-04-03T15:30:00",
@@ -26,13 +24,12 @@
     "category": "IT",
     "comments": [
       {
-        "user": "dev_girl",
+        "user": "10",
         "comment_text": "Ovo je smešno, ali istinito!"
       }
     ]
   },
   {
-    "_id": "3",
     "description": "Koliko programera treba da promeni sijalicu? Nijedan, to je problem korisnika.",
     "author": "3",
     "created_at": "2024-04-02T09:45:00",
@@ -40,13 +37,12 @@
     "category": "IT",
     "comments": [
       {
-        "user": "coding_ninja",
+        "user": "9",
         "comment_text": "Ah, klasik! Ali uvek se nasmejem."
       }
     ]
   },
   {
-    "_id": "4",
     "description": "Zašto JavaScript developer ne voli kampovanje? Jer se uvek plaši callback pakla!",
     "author": "4",
     "created_at": "2024-04-01T12:15:00",
@@ -54,13 +50,12 @@
     "category": "IT",
     "comments": [
       {
-        "user": "frontend_pro",
+        "user": "9",
         "comment_text": "Haha, dobar vic, ali callback pakao je prava stvar!"
       }
     ]
   },
   {
-    "_id": "5",
     "description": "Koliko bitova je potrebno da se promeni sijalica? 8, jedan da menja sijalicu, sedam da se svi slažu da to nije njihov posao.",
     "author": "5",
     "created_at": "2024-03-31T20:00:00",
@@ -68,13 +63,12 @@
     "category": "IT",
     "comments": [
       {
-        "user": "data_guru",
+        "user": "10",
         "comment_text": "Hehe, ovaj vic se primenjuje i na mnoge druge situacije!"
       }
     ]
   },
   {
-    "_id": "6",
     "description": "Kako C programer pije kafu? Iz cijevi!",
     "author": "6",
     "created_at": "2024-03-30T17:30:00",
@@ -82,13 +76,12 @@
     "category": "IT",
     "comments": [
       {
-        "user": "code_coffee",
+        "user": "10",
         "comment_text": "Ovo je smešno, ali se nadam da ne radi tako!"
       }
     ]
   },
   {
-    "_id": "7",
     "description": "Zašto programeri ne vole igru Monopol? Jer uvek dobiju NULL.",
     "author": "7",
     "created_at": "2024-03-29T11:20:00",
@@ -96,13 +89,12 @@
     "category": "IT",
     "comments": [
       {
-        "user": "boardgame_lover",
+        "user": "9",
         "comment_text": "Ha, dobar vic, ali ja ipak volim Monopol!"
       }
     ]
   },
   {
-    "_id": "8",
     "description": "Koja je omiljena stvar JavaScript developera? Nizovi!",
     "author": "8",
     "created_at": "2024-03-28T14:40:00",
@@ -110,13 +102,12 @@
     "category": "IT",
     "comments": [
       {
-        "user": "jslover",
+        "user": "9",
         "comment_text": "Ovo je tako istinito!"
       }
     ]
   },
   {
-    "_id": "9",
     "description": "Kako nazivate programera bez kafe? Kompajler bez kafe!",
     "author": "9",
     "created_at": "2024-03-27T09:10:00",
@@ -124,13 +115,12 @@
     "category": "IT",
     "comments": [
       {
-        "user": "code_caffeine",
+        "user": "7",
         "comment_text": "Nemoguće zamisliti!"
       }
     ]
   },
   {
-    "_id": "10",
     "description": "Zašto se Python programeri ne bore? Jer 'print(\"Hello, World!\")' i završe.",
     "author": "10",
     "created_at": "2024-03-26T16:55:00",
@@ -138,7 +128,7 @@
     "category": "IT",
     "comments": [
       {
-        "user": "python_lover",
+        "user": "10",
         "comment_text": "Haha, Python uvek jednostavan!"
       }
     ]

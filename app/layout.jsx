@@ -11,7 +11,6 @@ const MainLayout = ({ children }) => {
   return (
     <html lang="en">
       <body>
-        <Navbar />
         <main>{children}</main>
       </body>
     </html>
