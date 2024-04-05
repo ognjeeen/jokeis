@@ -37,7 +37,7 @@ const JokeCard = ({ joke }) => {
 
           <div className="mb-4">
             <Link
-              href="/jokes"
+              href={`/jokes/${joke._id}`}
               className=" bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-center text-sm"
             >
               Details

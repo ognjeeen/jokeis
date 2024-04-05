@@ -1,8 +1,13 @@
-import jokes from '@/jokes.json';
 import JokeCard from '@/components/JokeCard';
 import Navbar from '@/components/Navbar';
+import { fetchJokes } from '@/utils/request';
 
-const JokesPage = () => {
+const JokesPage = async () => {
+  const jokes = await fetchJokes();
+
+  // Sort properties by date
+  jokes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
   return (
     <>
       <Navbar />

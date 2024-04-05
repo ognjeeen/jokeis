@@ -1,10 +1,13 @@
 import connectDB from '@/config/database';
-
+import Joke from '@/models/Joke';
+// GET /api/jokes
 export const GET = async (request) => {
   try {
     await connectDB();
 
-    return new Response(JSON.stringify({ message: 'Hello World' }), {
+    const jokes = await Joke.find({});
+
+    return new Response(JSON.stringify(jokes), {
       status: 200,
     });
   } catch (error) {
