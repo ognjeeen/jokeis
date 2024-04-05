@@ -30,7 +30,6 @@ async function fetchJoke(id) {
     }
 
     const res = await fetch(`${apiDomain}/jokes/${id}`);
-    console.log(res);
 
     if (!res.ok) {
       throw new Error('Failed to fetch data');

@@ -7,7 +7,7 @@ export const GET = async (request, { params }) => {
     await connectDB();
     const joke = await Joke.findById(params.id);
 
-    if (!joke) return new Response('Property Not Found', { status: 404 });
+    if (!joke) return new Response('Joke Not Found', { status: 404 });
 
     return new Response(JSON.stringify(joke), { status: 200 });
   } catch (error) {
