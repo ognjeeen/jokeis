@@ -1,5 +1,5 @@
 import '@/assets/styles/globals.css';
-import Navbar from '@/components/Navbar';
+import AuthProvider from '@/components/AuthProvider';
 
 export const metadata = {
   title: 'Jokies | Joke is all yours',
@@ -9,11 +9,13 @@ export const metadata = {
 
 const MainLayout = ({ children }) => {
   return (
-    <html lang="en">
-      <body>
-        <main>{children}</main>
-      </body>
-    </html>
+    <AuthProvider>
+      <html lang="en">
+        <body>
+          <main>{children}</main>
+        </body>
+      </html>
+    </AuthProvider>
   );
 };
 

@@ -1,16 +1,20 @@
 'use client';
 import Navbar from '@/components/Navbar';
+import Spinner from '@/components/Spinner';
 import { fetchJoke } from '@/utils/request';
+import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { CgProfile } from 'react-icons/cg';
 import { FaArrowLeft, FaPaperPlane } from 'react-icons/fa';
 import { FcLikePlaceholder } from 'react-icons/fc';
-import Spinner from '@/components/Spinner';
 
 const JokePage = () => {
   const { id } = useParams();
+  const { data: session } = useSession();
+  const profileImage = session?.user?.image;
+  const profileDefault = '';
 
   const [joke, setJoke] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -55,37 +59,49 @@ const JokePage = () => {
               </Link>
             </div>
           </section>
-          <div className="relative flex justify-center">
+
+          <div className="relative flex justify-center ">
             {/* Joke Card */}
-            <div className="rounded-xl shadow-md xl:w-3/5 lg:w-4/5 md:w-5/6 sm:w-5/6 mb-5">
-              <div className="p-4">
+            <div className="rounded-xl shadow-md xl:w-3/5 lg:w-4/5 md:w-5/6 sm:w-5/6 mb-5 border relative">
+              <div className="text-gray-300 absolute right-3 top-2">
+                {new Date(joke.createdAt).toLocaleString()}
+              </div>
+              <div className="p-6">
                 {/* Joke categories */}
                 <div className="text-left mb-6">
                   <div className="text-gray-600 flex items-center">
-                    <CgProfile className="mr-1" /> Ognjen
+                    <Image
+                      src={profileImage || profileDefault}
+                      width={40}
+                      height={40}
+                      className="h-8 w-8 rounded-full mr-2"
+                      alt=""
+                    />
+                    <span className="text-lg">Ognjen</span>
                   </div>
-                  <div className="text-gray-600">
+
+                  {/* <div className="text-gray-600 mt-2 ">
                     <span> #{joke.category}</span>
-                  </div>
+                  </div> */}
                 </div>
 
                 {/* Joke Description */}
                 <div className="text-left md:text-center lg:text-left mb-6">
-                  <div className="text-gray-600">{joke.description}</div>
+                  <div className="text-lg">{joke.description}</div>
                 </div>
 
                 {/* Like and comment section */}
                 <div className="gap-4 text-gray-500 mb-4">
                   <p className="flex items-center">
                     <FcLikePlaceholder size="24" className="flex mr-1" />
-                    <span className="ml-1">{joke.likes} Likes</span>
+                    <span className="ml-1 text-lg">{joke.likes} Likes</span>
                   </p>
                 </div>
 
                 <div className="border border-gray-100 mb-5"></div>
 
                 {/* Add your comment */}
-                <div className="mb-4 flex justify-center items-center">
+                <div className="mb-6 flex justify-center items-center">
                   <textarea
                     className="shadow appearance-none border rounded w-full py-2 px-3 mr-3 text-gray-700 max-h-44 min-h-16 focus:outline-none focus:shadow-outline"
                     id="message"
@@ -104,12 +120,26 @@ const JokePage = () => {
                   {joke.comments.map((comment, index) => (
                     <li
                       key={index}
-                      className="mb-4 shadow appearance-none rounded py-2 px-3"
+                      className="mb-6 shadow appearance-none rounded-xl py-2 px-3 relative"
                     >
-                      <p className="mb-2">
-                        <strong>Ognjen</strong>
+                      <div className="flex items-center">
+                        <Image
+                          src={profileImage || profileDefault}
+                          width={40}
+                          height={40}
+                          className="h-8 w-8 rounded-full mr-2"
+                          alt=""
+                        />
+                        <div>
+                          <p className="mb-1">
+                            <strong>Ognjen</strong>
+                          </p>
+                        </div>
+                      </div>
+                      <p className="mt-4">{comment.comment_text}</p>
+                      <p className="mt-6 text-gray-300">
+                        {new Date(comment.createdAt).toLocaleString()}
                       </p>
-                      {comment.comment_text}
                     </li>
                   ))}
                 </ul>
