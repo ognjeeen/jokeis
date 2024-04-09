@@ -123,7 +123,7 @@ const Navbar = () => {
               Random Joke
             </Link>
             {session && (
-              <Link href="/joke/add" className="m-10 text-lg">
+              <Link href="/jokes/add" className="m-10 text-lg">
                 Post New Joke
               </Link>
             )}
