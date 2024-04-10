@@ -9,12 +9,12 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FaArrowLeft, FaPaperPlane } from 'react-icons/fa';
 import { FcLikePlaceholder } from 'react-icons/fc';
+import profileDefault from '@/assets/images/profile.png';
 
 const JokePage = () => {
   const { id } = useParams();
   const { data: session } = useSession();
   const profileImage = session?.user?.image;
-  const profileDefault = '';
 
   const [joke, setJoke] = useState(null);
   const [loading, setLoading] = useState(true);

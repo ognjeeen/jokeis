@@ -1,58 +1,10 @@
-// 'use client';
-// import { useState, useEffect } from 'react';
-// import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
-
-// const Navbar = () => {
-//   const { data: session } = useSession();
-//   const [providers, setProviders] = useState();
-
-//   useEffect(() => {
-//     const setAuthProviders = async () => {
-//       const res = await getProviders();
-//       setProviders(res);
-//     };
-
-//     setAuthProviders();
-//   }, []);
-
-//   return (
-//     <div className="px-5 py-5 flex md:flex-grow flex-row justify-between mb-10">
-//       <span className="hidden md:block text-gray-500 text-4xl font-bold">
-//         Jokeis
-//       </span>
-//       <div>
-//         <button className="ml-3">Random Joke</button>
-//         {session && (
-//           <div>
-//             <button className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-center text-sm ml-3">
-//               Post A Joke
-//             </button>
-//             <img />
-//           </div>
-//         )}
-//         {providers &&
-//           Object.values(providers).map((provider, index) => (
-//             <button
-//               onClick={() => signIn(provider.id)}
-//               key={index}
-//               className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-center text-sm ml-3"
-//             >
-//               Login/Register
-//             </button>
-//           ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Navbar;
-
 'use client';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaGoogle } from 'react-icons/fa';
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
+import profileDefault from '@/assets/images/profile.png';
 
 const Navbar = () => {
   const { data: session } = useSession();

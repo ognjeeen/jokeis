@@ -14,7 +14,14 @@ const JokeAddForm = () => {
     setMounted(true);
   }, []);
 
-  const handleChange = () => {};
+  // Name is connected to the id of input field and value is self explanatory
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFields((prevFields) => ({
+      ...prevFields,
+      [name]: value,
+    }));
+  };
 
   return (
     mounted && (
