@@ -3,7 +3,6 @@ import { FaRegCommentDots } from 'react-icons/fa';
 import { FcLike } from 'react-icons/fc';
 
 const JokeCard = ({ joke }) => {
-  console.log(joke.createdAt);
   return (
     <div className="relative flex justify-center">
       {/* Joke Card */}

@@ -2,13 +2,20 @@ import { Schema, model, models } from 'mongoose';
 
 const JokeSchema = new Schema(
   {
-    author: {
+    owner: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
     },
+    ownerImage: {
+      type: String,
+    },
+    author: {
+      type: String,
+    },
     description: {
       type: String,
+      required: true,
     },
     category: {
       type: String,

@@ -5,9 +5,8 @@ const JokeAddForm = () => {
   const [mounted, setMounted] = useState(false);
   const [fields, setFields] = useState({
     category: 'IT',
-    description:
-      'This is just a teessssssssssttt test joke which is super funny and yummi',
-    author: 'Ognjen',
+    description: '',
+    author: '',
   });
 
   useEffect(() => {
@@ -25,7 +24,7 @@ const JokeAddForm = () => {
 
   return (
     mounted && (
-      <form>
+      <form action="/api/jokes" method="POST">
         <h2 className="text-3xl text-center font-semibold mb-6">
           Add New Joke
         </h2>
@@ -59,6 +58,7 @@ const JokeAddForm = () => {
             Description
           </label>
           <textarea
+            required
             value={fields.description}
             onChange={handleChange}
             id="description"

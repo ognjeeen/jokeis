@@ -3,7 +3,6 @@ import { fetchJokes } from '@/utils/request';
 
 const HomePage = async () => {
   const data = await fetchJokes();
-  console.log(data);
   return (
     <div className="flex items-center justify-center h-screen">
       <div>

@@ -1,20 +1,18 @@
 'use client';
+import profileDefault from '@/assets/images/profile.png';
 import Navbar from '@/components/Navbar';
 import Spinner from '@/components/Spinner';
 import { fetchJoke } from '@/utils/request';
-import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FaArrowLeft, FaPaperPlane } from 'react-icons/fa';
 import { FcLikePlaceholder } from 'react-icons/fc';
-import profileDefault from '@/assets/images/profile.png';
+import ProfileAnonymous from '@/assets/images/incognito.png';
 
 const JokePage = () => {
   const { id } = useParams();
-  const { data: session } = useSession();
-  const profileImage = session?.user?.image;
 
   const [joke, setJoke] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -71,13 +69,17 @@ const JokePage = () => {
                 <div className="text-left mb-6">
                   <div className="text-gray-600 flex items-center">
                     <Image
-                      src={profileImage || profileDefault}
+                      src={
+                        joke.author === 'Anonymous'
+                          ? ProfileAnonymous
+                          : joke.ownerImage
+                      }
                       width={40}
                       height={40}
                       className="h-8 w-8 rounded-full mr-2"
                       alt=""
                     />
-                    <span className="text-lg">Ognjen</span>
+                    <span className="text-lg">{joke.author}</span>
                   </div>
 
                   {/* <div className="text-gray-600 mt-2 ">
