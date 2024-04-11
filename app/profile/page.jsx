@@ -1,4 +1,5 @@
 'use client';
+import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -6,12 +7,44 @@ import { useSession } from 'next-auth/react';
 import profileDefault from '@/assets/images/profile.png';
 import { FaRegCommentDots } from 'react-icons/fa';
 import { FcLike } from 'react-icons/fc';
+import Spinner from '@/components/Spinner';
 
 const ProfilePage = () => {
   const { data: session } = useSession();
   const profileImage = session?.user?.image;
   const profileName = session?.user?.name;
   const profileEmail = session?.user?.email;
+
+  const [jokes, setJokes] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUserProperties = async (userId) => {
+      if (!userId) {
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/jokes/user/${userId}`);
+
+        if (res.status === 200) {
+          const data = await res.json();
+          setJokes(data);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // Fetch user properties when session is available
+    if (session?.user?.id) {
+      fetchUserProperties(session.user.id);
+    }
+  }, [session]);
+
+  const handleDeleteJoke = () => {};
 
   return (
     <>
@@ -35,12 +68,11 @@ const ProfilePage = () => {
                   />
                 </div>
                 <div className="text-center">
-                  <h2 className="text-xl md:text-2xl mb-4 rounded-xl p-4 shadow-md">
-                    <span className="font-bold block">Name: </span>{' '}
-                    {profileName}
+                  <h2 className="text-xl md:text-2xl mb-4 rounded-xl p-3 shadow-md">
+                    <span className="font-bold block">Name</span> {profileName}
                   </h2>
-                  <h2 className="text-xl md:text-2xl mb-4 rounded-xl p-6 shadow-md">
-                    <span className="font-bold block">Email: </span>{' '}
+                  <h2 className="text-xl md:text-2xl mb-4 rounded-xl p-3 shadow-md ">
+                    <span className="font-bold block">Email</span>
                     {profileEmail}
                   </h2>
                 </div>
@@ -49,52 +81,74 @@ const ProfilePage = () => {
               {/* Lista viceva */}
               <div className="md:w-2/3 md:pl-4">
                 <h2 className="text-2xl font-semibold mb-6">Your Jokes</h2>
-                <div className="flex flex-col">
-                  {/* Joke Card */}
-                  <div className="rounded-xl shadow-md mb-10 border">
-                    <div className="p-4 relative">
-                      <div className="text-gray-300 absolute right-3 top-3 text-lg">
-                        24.21.2
-                      </div>
-                      {/* Joke categories */}
-                      <div className="text-left mb-6">
-                        <div className="text-gray-600">
-                          Joke Category
-                          <span> #IT</span>
-                        </div>
-                      </div>
+                {!loading && jokes.length === 0 && (
+                  <p>You have no jokes posted</p>
+                )}
+                {loading ? (
+                  <Spinner loading={loading} />
+                ) : (
+                  jokes.map((joke) => (
+                    <div key={joke._id} className="flex flex-col">
+                      {/* Joke Card */}
+                      <div className="rounded-xl shadow-md mb-10 border">
+                        <div className="p-4 relative">
+                          <div className="text-gray-300 absolute hidden md:block md:right-3 md:top-3 text-lg">
+                            {new Date(joke.createdAt).toLocaleString()}
+                          </div>
+                          {/* Joke categories */}
+                          <div className="text-left mb-6">
+                            <div className="text-gray-600">
+                              Joke Category
+                              <span> #{joke.category}</span>
+                            </div>
+                          </div>
 
-                      {/* Joke Description */}
-                      <div className="text-left lg:text-left mb-12 overflow-hidden">
-                        <div className="text-gray-600 text-lg break-all">
-                          Jgggggggggggggggggggggggggfdfgdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffg
-                        </div>
-                      </div>
+                          {/* Joke Description */}
+                          <div className="text-left lg:text-left mb-12 overflow-hidden">
+                            <div className="text-gray-600 text-lg break-all">
+                              {joke.description}
+                            </div>
+                          </div>
 
-                      {/* Like and comment section */}
-                      <div className="lg:flex gap-4 text-gray-500 mb-4 text-lg">
-                        <p className="flex items-center">
-                          <FcLike className="inline mr-1" /> 20
-                          <span className="lg:inline ml-1">Likes</span>
-                        </p>
-                        <p className="flex items-center">
-                          <FaRegCommentDots className="inline mr-1" />
-                          20
-                          <span className="lg:inline ml-1">Comments</span>
-                        </p>
-                      </div>
-                      <div className="border border-gray-100 mb-5"></div>
-                      <div className="mb-4">
-                        <Link
-                          href={`/jokes/`}
-                          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-center text-lg block"
-                        >
-                          See comments
-                        </Link>
+                          {/* Like and comment section */}
+                          <div className="lg:flex gap-4 text-gray-500 mb-4 text-lg">
+                            <p className="flex items-center">
+                              <FcLike className="inline mr-1" /> {joke.likes}
+                              <span className="lg:inline ml-1">Likes</span>
+                            </p>
+                            <p className="flex items-center">
+                              <FaRegCommentDots className="inline mr-1" />
+                              {joke.comments.length}
+                              <span className="lg:inline ml-1">Comments</span>
+                            </p>
+                          </div>
+                          <div className="border border-gray-100 mb-5"></div>
+                          <div className="mb-4 flex flex-col md:inline-block gap-2">
+                            <Link
+                              href={`/jokes/${joke._id}`}
+                              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-center md:text-lg inline-block md:mr-2"
+                            >
+                              See comments
+                            </Link>
+                            <Link
+                              href={`/jokes/${joke._id}/edit`}
+                              className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg text-center md:text-lg inline-block md:mr-2"
+                            >
+                              Edit
+                            </Link>
+                            <Link
+                              onClick={() => handleDeleteJoke}
+                              href={`/jokes/${joke._id}/delete`}
+                              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-center md:text-lg inline-block md:mr-2"
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
+                  ))
+                )}
               </div>
             </div>
           </div>
