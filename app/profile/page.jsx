@@ -19,7 +19,7 @@ const ProfilePage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUserProperties = async (userId) => {
+    const fetchUserJokes = async (userId) => {
       if (!userId) {
         return;
       }
@@ -38,13 +38,37 @@ const ProfilePage = () => {
       }
     };
 
-    // Fetch user properties when session is available
+    // Fetch user jokes when session is available
     if (session?.user?.id) {
-      fetchUserProperties(session.user.id);
+      fetchUserJokes(session.user.id);
     }
   }, [session]);
 
-  const handleDeleteJoke = () => {};
+  const handleDeleteJoke = async (jokeId) => {
+    const confirmed = window.confirm(
+      'Are you sure you want to delete this joke?'
+    );
+
+    if (!confirmed) return;
+
+    try {
+      const res = await fetch(`/api/jokes/${jokeId}`, {
+        method: 'DELETE',
+      });
+
+      if (res.status === 200) {
+        const updatedJokes = jokes.filter((joke) => joke._id !== jokeId);
+
+        setJokes(updatedJokes);
+        console.log('Joke Deleted');
+      } else {
+        console.log('Failed to delete joke');
+      }
+    } catch (error) {
+      console.log(error);
+      console.log('Failed to delete joke');
+    }
+  };
 
   return (
     <>
@@ -136,13 +160,12 @@ const ProfilePage = () => {
                             >
                               Edit
                             </Link>
-                            <Link
-                              onClick={() => handleDeleteJoke}
-                              href={`/jokes/${joke._id}/delete`}
+                            <button
+                              onClick={() => handleDeleteJoke(joke._id)}
                               className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-center md:text-lg inline-block md:mr-2"
                             >
                               Delete
-                            </Link>
+                            </button>
                           </div>
                         </div>
                       </div>

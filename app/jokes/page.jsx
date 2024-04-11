@@ -5,7 +5,7 @@ import { fetchJokes } from '@/utils/request';
 const JokesPage = async () => {
   const jokes = await fetchJokes();
 
-  // Sort properties by date
+  // Sort jokes by date
   jokes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
   return (
