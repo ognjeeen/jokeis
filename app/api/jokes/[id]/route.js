@@ -55,3 +55,50 @@ export const DELETE = async (request, { params }) => {
     return new Response('Something Went Wrong', { status: 500 });
   }
 };
+
+// PUT /api/jokes/:id/edit
+export const PUT = async (request, { params }) => {
+  try {
+    await connectDB();
+
+    const sessionUser = await getSessionUser();
+    if (!sessionUser || !sessionUser.userId) {
+      return new Response('User ID is required', { status: 401 });
+    }
+
+    const { id } = params;
+
+    const { userId } = sessionUser;
+
+    const formData = await request.formData();
+
+    const existingJoke = await Joke.findById(id);
+    if (!existingJoke) {
+      return new Response('Joke does not exist', { status: 404 });
+    }
+
+    // Verify ownership
+    if (existingJoke.owner.toString() !== userId) {
+      return new Response('Unauthorized', { status: 401 });
+    }
+
+    // Create jokeData object from database
+    const jokeData = {
+      category: existingJoke.category,
+      description: formData.get('description'),
+      author: existingJoke.author,
+      likes: 0,
+      owner: userId,
+    };
+
+    // Update joke in database
+    const updatedJoke = await Joke.findByIdAndUpdate(id, jokeData);
+
+    return new Response(JSON.stringify(updatedJoke), {
+      status: 200,
+    });
+  } catch (error) {
+    console.log(error);
+    return new Response('Failed to add joke', { status: 500 });
+  }
+};

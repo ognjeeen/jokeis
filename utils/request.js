@@ -29,7 +29,7 @@ async function fetchJoke(id) {
       return null;
     }
 
-    const res = await fetch(`${apiDomain}/jokes/${id}`);
+    const res = await fetch(`${apiDomain}/jokes/${id}`, { cache: 'no-store' });
 
     if (!res.ok) {
       throw new Error('Failed to fetch data');

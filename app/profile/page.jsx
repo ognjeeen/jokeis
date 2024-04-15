@@ -19,6 +19,8 @@ const ProfilePage = () => {
   const [jokes, setJokes] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  jokes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
   useEffect(() => {
     const fetchUserJokes = async (userId) => {
       if (!userId) {
@@ -81,8 +83,7 @@ const ProfilePage = () => {
               Your Profile
             </h1>
             <div className="md:flex md:flex-col md:items-center">
-              {/* Slika i informacije o korisniku */}
-              <div className="md:w-1/3 flex-shrink-0 mb-6">
+              <div className="xl:w-2/4 md:w-2/3 flex-shrink-0 mb-6">
                 <div className="mb-4 flex justify-center">
                   <Image
                     className="rounded-full"
@@ -90,21 +91,21 @@ const ProfilePage = () => {
                     width={150}
                     height={150}
                     alt="User"
+                    priority={true}
                   />
                 </div>
                 <div className="text-center">
                   <h2 className="text-xl md:text-2xl mb-4 rounded-xl p-3 shadow-md">
                     <span className="font-bold block">Name</span> {profileName}
                   </h2>
-                  <h2 className="text-xl md:text-2xl mb-4 rounded-xl p-3 shadow-md ">
+                  <h2 className="text-xl md:text-2xl mb-4 rounded-xl p-3 shadow-md">
                     <span className="font-bold block">Email</span>
                     {profileEmail}
                   </h2>
                 </div>
               </div>
 
-              {/* Lista viceva */}
-              <div className="md:w-2/3 md:pl-4">
+              <div className="md:w-3/4 md:pl-4">
                 <h2 className="text-2xl font-semibold mb-6">Your Jokes</h2>
                 {!loading && jokes.length === 0 && (
                   <p>You have no jokes posted</p>

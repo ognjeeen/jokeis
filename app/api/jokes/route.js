@@ -45,10 +45,6 @@ export const POST = async (request) => {
     const newJoke = new Joke(jokeData);
     await newJoke.save();
 
-    // return new Response(JSON.stringify({ message: 'Success' }), {
-    //   status: 200,
-    // });
-
     return Response.redirect(
       `${process.env.NEXTAUTH_URL}/jokes/${newJoke._id}`
     );
