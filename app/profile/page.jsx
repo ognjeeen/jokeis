@@ -8,6 +8,7 @@ import profileDefault from '@/assets/images/profile.png';
 import { FaRegCommentDots } from 'react-icons/fa';
 import { FcLike } from 'react-icons/fc';
 import Spinner from '@/components/Spinner';
+import { toast } from 'react-toastify';
 
 const ProfilePage = () => {
   const { data: session } = useSession();
@@ -60,13 +61,13 @@ const ProfilePage = () => {
         const updatedJokes = jokes.filter((joke) => joke._id !== jokeId);
 
         setJokes(updatedJokes);
-        console.log('Joke Deleted');
+        toast.success('Joke Deleted');
       } else {
-        console.log('Failed to delete joke');
+        toast.error('Failed to delete joke');
       }
     } catch (error) {
       console.log(error);
-      console.log('Failed to delete joke');
+      toast.error('Failed to delete joke');
     }
   };
 

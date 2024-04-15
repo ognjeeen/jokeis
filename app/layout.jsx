@@ -1,5 +1,7 @@
 import '@/assets/styles/globals.css';
 import AuthProvider from '@/components/AuthProvider';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const metadata = {
   title: 'Jokies | Joke is all yours',
@@ -13,6 +15,7 @@ const MainLayout = ({ children }) => {
       <html lang="en">
         <body>
           <main>{children}</main>
+          <ToastContainer />
         </body>
       </html>
     </AuthProvider>
