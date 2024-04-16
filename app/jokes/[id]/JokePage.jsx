@@ -1,7 +1,6 @@
 'use client';
 import ProfileAnonymous from '@/assets/images/incognito.png';
 import profileDefault from '@/assets/images/profile.png';
-import LikeButton from '@/components/LikeButton';
 import Navbar from '@/components/Navbar';
 import Spinner from '@/components/Spinner';
 import { fetchJoke } from '@/utils/request';
@@ -11,12 +10,18 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FaArrowLeft, FaPaperPlane } from 'react-icons/fa';
+import { FcLikePlaceholder, FcLike } from 'react-icons/fc';
+import { toast } from 'react-toastify';
 
-const JokePage = () => {
+export const JokePage = () => {
   const { id } = useParams();
 
   const [joke, setJoke] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const { data: session } = useSession();
+  const userId = session?.user?.id;
+  const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
     const fetchJokeData = async () => {
@@ -41,6 +46,55 @@ const JokePage = () => {
       <h1 className="text-center text-2xl font-bold mt-10">Joke Not Found</h1>
     );
   }
+
+  const handleClick = async () => {
+    if (!userId) {
+      toast.error('You need to sign in to like jokes');
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/likes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          jokeId: joke._id,
+        }),
+      });
+
+      if (res.status === 200) {
+        const data = await res.json();
+        toast.success(data.message);
+        setIsLiked(data.isLiked);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error('Something went wrong');
+    }
+  };
+
+  useEffect(() => {
+    const checkLikeStutus = async () => {
+      try {
+        const res = await fetch('/api/likes/check', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            jokeId: joke._id,
+          }),
+        });
+
+        if (res.status === 200) {
+          const data = await res.json();
+          setIsLiked(data.isLiked);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    checkLikeStutus();
+  }, [joke._id, userId]);
 
   return (
     <>
@@ -84,8 +138,8 @@ const JokePage = () => {
                   </div>
 
                   {/* <div className="text-gray-600 mt-2 ">
-                    <span> #{joke.category}</span>
-                  </div> */}
+                      <span> #{joke.category}</span>
+                    </div> */}
                 </div>
 
                 {/* Joke Description */}
@@ -93,7 +147,30 @@ const JokePage = () => {
                   <div className="text-lg">{joke.description}</div>
                 </div>
 
-                <LikeButton joke={joke} setJoke={setJoke} />
+                {isLiked ? (
+                  <div className="gap-4 text-gray-500 mb-4">
+                    <p className="flex items-center">
+                      <FcLikePlaceholder
+                        size="24"
+                        className="flex mr-1"
+                        onClick={handleClick}
+                      />
+                      <span className="ml-1 text-lg">{joke.likes} Likes</span>
+                    </p>
+                  </div>
+                ) : (
+                  <div className="gap-4 text-gray-500 mb-4">
+                    <p className="flex items-center">
+                      <FcLike
+                        size="24"
+                        className="flex mr-1"
+                        onClick={handleClick}
+                      />
+                      <span className="ml-1 text-lg">{joke.likes} Likes</span>
+                    </p>
+                  </div>
+                )}
+
                 <div className="border border-gray-100 mb-5"></div>
 
                 {/* Add your comment */}
@@ -147,5 +224,3 @@ const JokePage = () => {
     </>
   );
 };
-
-export default JokePage;

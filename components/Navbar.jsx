@@ -24,7 +24,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="p-5">
+    <nav className="p-5 shadow-md">
       <div>
         <div className="relative flex h-20 items-center">
           <div className="absolute inset-y-0 left-0 flex items-center md:hidden">

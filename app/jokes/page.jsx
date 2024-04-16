@@ -11,7 +11,7 @@ const JokesPage = async () => {
   return (
     <>
       <Navbar />
-      <section className="px-4 py-4">
+      <section className="px-4 py-4 mt-6">
         {jokes.length === 0 ? (
           <p>No jokes found</p>
         ) : (
