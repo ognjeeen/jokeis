@@ -13,6 +13,7 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [providers, setProviders] = useState(null);
+  const [randomJokeId, setRandomJokeId] = useState(null);
 
   useEffect(() => {
     const setAuthProviders = async () => {
@@ -21,6 +22,23 @@ const Navbar = () => {
     };
 
     setAuthProviders();
+  }, []);
+
+  useEffect(() => {
+    const RandomJoke = async () => {
+      try {
+        const res = await fetch('/api/jokes/random');
+
+        if (res.status === 200) {
+          const data = await res.json();
+          setRandomJokeId(data._id);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    RandomJoke();
   }, []);
 
   return (
@@ -71,7 +89,7 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:block">
-            <Link href="/" className="text-lg">
+            <Link href={`/jokes/${randomJokeId}`} className="text-lg">
               Random Joke
             </Link>
             {session && (
@@ -190,7 +208,7 @@ const Navbar = () => {
             <Link href="/jokes" className="flex p-1">
               Jokes
             </Link>
-            <Link href="/jokes/random" className="flex p-1">
+            <Link href={`/jokes/${randomJokeId}`} className="flex p-1">
               Random Joke
             </Link>
 
