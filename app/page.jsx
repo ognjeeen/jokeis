@@ -1,8 +1,6 @@
 import Link from 'next/link';
-import { fetchJokes } from '@/utils/request';
 
 const HomePage = async () => {
-  const data = await fetchJokes();
   return (
     <div className="flex items-center justify-center h-screen">
       <div>

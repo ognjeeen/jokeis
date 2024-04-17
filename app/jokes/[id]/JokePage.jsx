@@ -41,6 +41,29 @@ export const JokePage = () => {
     }
   }, [id, joke]);
 
+  useEffect(() => {
+    const checkLikeStutus = async () => {
+      try {
+        const res = await fetch('/api/likes/check', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            jokeId: joke._id,
+          }),
+        });
+
+        if (res.status === 200) {
+          const data = await res.json();
+          setIsLiked(data.isLiked);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    checkLikeStutus();
+  }, [joke._id, userId]);
+
   if (!joke && !loading) {
     return (
       <h1 className="text-center text-2xl font-bold mt-10">Joke Not Found</h1>
@@ -72,29 +95,6 @@ export const JokePage = () => {
       toast.error('Something went wrong');
     }
   };
-
-  useEffect(() => {
-    const checkLikeStutus = async () => {
-      try {
-        const res = await fetch('/api/likes/check', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            jokeId: joke._id,
-          }),
-        });
-
-        if (res.status === 200) {
-          const data = await res.json();
-          setIsLiked(data.isLiked);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    checkLikeStutus();
-  }, [joke._id, userId]);
 
   return (
     <>

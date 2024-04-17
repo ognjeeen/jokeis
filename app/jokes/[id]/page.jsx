@@ -5,7 +5,6 @@ import LikeButton from '@/components/LikeButton';
 import Navbar from '@/components/Navbar';
 import Spinner from '@/components/Spinner';
 import { fetchJoke } from '@/utils/request';
-import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
