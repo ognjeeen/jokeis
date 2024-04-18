@@ -1,13 +1,12 @@
 'use client';
-import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
+import Spinner from '@/components/Spinner';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
-import profileDefault from '@/assets/images/profile.png';
+import { useEffect, useState } from 'react';
 import { FaRegCommentDots } from 'react-icons/fa';
 import { FcLike } from 'react-icons/fc';
-import Spinner from '@/components/Spinner';
 import { toast } from 'react-toastify';
 
 const ProfilePage = () => {
@@ -87,7 +86,7 @@ const ProfilePage = () => {
                 <div className="mb-4 flex justify-center">
                   <Image
                     className="rounded-full"
-                    src={profileImage || profileDefault}
+                    src={profileImage}
                     width={150}
                     height={150}
                     alt="User"
@@ -130,9 +129,16 @@ const ProfilePage = () => {
                           </div>
 
                           {/* Joke Description */}
-                          <div className="text-left lg:text-left mb-12 overflow-hidden">
+                          <div className="text-left lg:text-left mb-6 overflow-hidden">
                             <div className="text-gray-600 text-lg break-all">
                               {joke.description}
+                              <div>
+                                {joke.author === 'Anonymous' && (
+                                  <span className="text-gray-300 text-base">
+                                    (Posted as anonymous)
+                                  </span>
+                                )}
+                              </div>
                             </div>
                           </div>
 

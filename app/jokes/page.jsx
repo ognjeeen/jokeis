@@ -42,7 +42,9 @@ const JokesPage = () => {
           <Navbar />
           <section className="px-4 py-4 mt-6">
             {jokes.length === 0 ? (
-              <p>No jokes found</p>
+              <p className="justify-center items-center flex p-10 text-xl">
+                No jokes found
+              </p>
             ) : (
               <div>
                 {jokes.map((joke) => (

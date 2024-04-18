@@ -13,6 +13,7 @@ export const getSessionUser = async () => {
       user: session.user,
       userId: session.user.id,
       ownerImage: session.user.image,
+      ownerName: session.user.name,
     };
   } catch (error) {
     console.error(error);

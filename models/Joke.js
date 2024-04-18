@@ -26,10 +26,16 @@ const JokeSchema = new Schema(
     },
     comments: [
       {
-        user: {
+        owner: {
           type: Schema.Types.ObjectId,
           ref: 'User',
           required: true,
+        },
+        ownerImage: {
+          type: String,
+        },
+        ownerName: {
+          type: String,
         },
         content: {
           type: String,

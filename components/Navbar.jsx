@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FaGoogle } from 'react-icons/fa';
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
-import profileDefault from '@/assets/images/profile.png';
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -89,6 +88,9 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:block">
+            <Link href={`/jokes`} className="text-lg m-10">
+              All Jokes
+            </Link>
             <Link href={`/jokes/${randomJokeId}`} className="text-lg">
               Random Joke
             </Link>
@@ -136,7 +138,7 @@ const Navbar = () => {
                     <span className="sr-only">Open user menu</span>
                     <Image
                       className="h-8 w-8 rounded-full"
-                      src={profileImage || profileDefault}
+                      src={profileImage}
                       alt=""
                       width={40}
                       height={40}

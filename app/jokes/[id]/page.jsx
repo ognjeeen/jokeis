@@ -1,6 +1,5 @@
 'use client';
 import ProfileAnonymous from '@/assets/images/incognito.png';
-import profileDefault from '@/assets/images/profile.png';
 import LikeButton from '@/components/LikeButton';
 import Navbar from '@/components/Navbar';
 import Spinner from '@/components/Spinner';
@@ -16,6 +15,17 @@ const JokePage = () => {
 
   const [joke, setJoke] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const [jokeCommentData, setJokeCommentData] = useState({
+    content: '',
+  });
+
+  const handleChange = (e) => {
+    setJokeCommentData((prevComments) => ({
+      ...prevComments,
+      content: e.target.value,
+    }));
+  };
 
   useEffect(() => {
     const fetchJokeData = async () => {
@@ -41,6 +51,8 @@ const JokePage = () => {
     );
   }
 
+  // joke.comments.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
   return (
     <>
       <Navbar />
@@ -58,15 +70,15 @@ const JokePage = () => {
             </div>
           </section>
 
-          <div className="relative flex justify-center ">
+          <div className="relative flex justify-center p-2">
             {/* Joke Card */}
             <div className="rounded-xl shadow-md xl:w-3/5 lg:w-4/5 md:w-5/6 sm:w-5/6 mb-5 border relative">
-              <div className="text-gray-300 absolute right-3 top-2">
+              <div className="text-gray-300 absolute top-2 right-1/2 transform translate-x-1/2 whitespace-nowrap">
                 {new Date(joke.createdAt).toLocaleString()}
               </div>
               <div className="p-6">
                 {/* Joke categories */}
-                <div className="text-left mb-6">
+                <div className="text-left mb-6 mt-2">
                   <div className="text-gray-600 flex items-center">
                     <Image
                       src={
@@ -88,26 +100,35 @@ const JokePage = () => {
                 </div>
 
                 {/* Joke Description */}
-                <div className="text-left md:text-center lg:text-left mb-6">
-                  <div className="text-lg">{joke.description}</div>
+                <div className="text-left lg:text-left mb-6">
+                  <div className="text-lg text-wrap">{joke.description}</div>
                 </div>
 
                 <LikeButton joke={joke} setJoke={setJoke} />
                 <div className="border border-gray-100 mb-5"></div>
 
                 {/* Add your comment */}
-                <div className="mb-6 flex justify-center items-center">
-                  <textarea
-                    className="shadow appearance-none border rounded w-full py-2 px-3 mr-3 text-gray-700 max-h-44 min-h-16 focus:outline-none focus:shadow-outline"
-                    id="message"
-                    placeholder="Enter your comment"
-                  ></textarea>
-                  <button
-                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-2 rounded-full focus:outline-none focus:shadow-outline flex items-center justify-center h-full"
-                    type="submit"
+                <div>
+                  <form
+                    className="mb-6 flex justify-center items-center"
+                    action={`/api/jokes/${joke._id}/comments`}
+                    method="POST"
                   >
-                    <FaPaperPlane className="mr-2" />
-                  </button>
+                    <textarea
+                      value={jokeCommentData.content}
+                      onChange={handleChange}
+                      className="shadow appearance-none border rounded w-full py-2 px-3 mr-3 text-gray-700 max-h-44 min-h-16 focus:outline-none focus:shadow-outline"
+                      id="content"
+                      name="content"
+                      placeholder="Enter your comment"
+                    ></textarea>
+                    <button
+                      className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-2 rounded-full focus:outline-none focus:shadow-outline flex items-center justify-center h-full"
+                      type="submit"
+                    >
+                      <FaPaperPlane className="mr-2" />
+                    </button>
+                  </form>
                 </div>
 
                 {/* Comment section */}
@@ -119,20 +140,20 @@ const JokePage = () => {
                     >
                       <div className="flex items-center">
                         <Image
-                          src={profileImage || profileDefault}
+                          src={comment.ownerImage}
                           width={40}
                           height={40}
                           className="h-8 w-8 rounded-full mr-2"
                           alt=""
                         />
                         <div>
-                          <p className="mb-1">
-                            <strong>Ognjen</strong>
+                          <p>
+                            <strong>{comment.ownerName}</strong>
                           </p>
                         </div>
                       </div>
-                      <p className="mt-4">{comment.comment_text}</p>
-                      <p className="mt-6 text-gray-300">
+                      <p className="mt-4">{comment.content}</p>
+                      <p className="mt-4 text-gray-300">
                         {new Date(comment.createdAt).toLocaleString()}
                       </p>
                     </li>

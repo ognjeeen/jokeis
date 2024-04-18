@@ -8,7 +8,7 @@ const JokeCard = ({ joke }) => {
       {/* Joke Card */}
       <div className="rounded-xl shadow-md xl:w-3/5 lg:w-3/5 md:w-5/6 sm:w-5/6 mb-10 p-2">
         <div className="p-4 relative">
-          <div className="text-gray-300 absolute right-3 top-3 text-lg">
+          <div className="text-gray-300 absolute md:right-3 md:top-3 right-15 top-9 md:text-lg text-sm">
             {new Date(joke.createdAt).toLocaleString()}
           </div>
           {/* Joke categories */}
@@ -21,7 +21,9 @@ const JokeCard = ({ joke }) => {
 
           {/* Joke Description */}
           <div className="text-left lg:text-left mb-12">
-            <div className="text-gray-600 text-lg">{joke.description}</div>
+            <div className="text-gray-600 text-lg text-wrap">
+              {joke.description}
+            </div>
           </div>
 
           {/* Like and comment section */}
