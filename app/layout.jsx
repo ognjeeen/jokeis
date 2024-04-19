@@ -13,6 +13,9 @@ const MainLayout = ({ children }) => {
   return (
     <AuthProvider>
       <html lang="en">
+        <head>
+          <link rel="icon" type="image/png" src="/favicon.ico" />
+        </head>
         <body>
           <main>{children}</main>
           <ToastContainer />

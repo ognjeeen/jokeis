@@ -3,6 +3,8 @@ import User from '@/models/User';
 import Joke from '@/models/Joke';
 import { getSessionUser } from '@/utils/getSessionUser';
 
+export const dynamic = 'force-dynamic';
+
 // GET /api/liked
 export const GET = async () => {
   try {

@@ -1,5 +1,6 @@
 import connectDB from '@/config/database';
 import Joke from '@/models/Joke';
+import User from '@/models/User';
 import { getSessionUser } from '@/utils/getSessionUser';
 
 // GET /api/jokes
@@ -9,7 +10,24 @@ export const GET = async (request) => {
 
     const jokes = await Joke.find({});
 
-    return new Response(JSON.stringify(jokes), {
+    const totalLikes = await Joke.aggregate([
+      {
+        $group: {
+          _id: null,
+          totalLikes: { $sum: '$likes' },
+        },
+      },
+    ]);
+
+    const totalUsers = await User.countDocuments();
+
+    const responseData = {
+      jokes: jokes,
+      totalLikes: totalLikes.length > 0 ? totalLikes[0].totalLikes : 0,
+      totalUsers: totalUsers,
+    };
+
+    return new Response(JSON.stringify(responseData), {
       status: 200,
     });
   } catch (error) {

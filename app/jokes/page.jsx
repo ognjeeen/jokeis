@@ -1,4 +1,5 @@
 'use client';
+import JokeStatisticCards from '@/components/JokeStatisticCards';
 import JokeCard from '@/components/JokeCard';
 import Navbar from '@/components/Navbar';
 import Spinner from '@/components/Spinner';
@@ -9,6 +10,7 @@ const JokesPage = () => {
 
   const [jokes, setJokes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [totalUsers, setTotalUsers] = useState(0);
 
   useEffect(() => {
     const fetchJokes = async () => {
@@ -17,7 +19,8 @@ const JokesPage = () => {
 
         if (res.status === 200) {
           const data = await res.json();
-          setJokes(data);
+          setJokes(data.jokes);
+          setTotalUsers(data.totalUsers);
         }
       } catch (error) {
         console.log(error);
@@ -40,6 +43,7 @@ const JokesPage = () => {
       ) : (
         <>
           <Navbar />
+          <JokeStatisticCards jokes={jokes} totalUsers={totalUsers} />
           <section className="px-4 py-4 mt-6">
             {jokes.length === 0 ? (
               <p className="justify-center items-center flex p-10 text-xl">
