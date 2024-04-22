@@ -1,6 +1,12 @@
 import { CiViewList, CiHeart, CiUser } from 'react-icons/ci';
 
-const HomePageCategories = ({ jokes, totalUsers }) => {
+const HomePageCategories = ({
+  jokes,
+  totalUsers,
+  totalLikes,
+  totalItems,
+  totalComments,
+}) => {
   return (
     <div className="flex flex-wrap">
       <div className="md:flex-nowrap md:inline-flex justify-center items-center m-auto flex flex-wrap">
@@ -8,7 +14,7 @@ const HomePageCategories = ({ jokes, totalUsers }) => {
           <div className="p-2 text-center md:px-8 border-2 rounded-2xl border-gray-400 shadow-lg">
             <CiViewList size={40} />
             <span className="text-blue-600 font-bold text-2xl">
-              {jokes.length}
+              {totalItems}
             </span>
           </div>
         </div>
@@ -17,7 +23,7 @@ const HomePageCategories = ({ jokes, totalUsers }) => {
           <div className="p-2 text-center md:px-8 border-2 rounded-2xl border-gray-400 shadow-lg">
             <CiHeart size={40} />
             <span className="text-blue-600 font-bold text-2xl flex justify-center">
-              {jokes.reduce((total, joke) => total + joke.likes, 0)}
+              {totalLikes}
             </span>
           </div>
         </div>
@@ -39,7 +45,7 @@ const HomePageCategories = ({ jokes, totalUsers }) => {
               />
             </svg>
             <span className="text-blue-600 font-bold text-2xl flex justify-center">
-              {jokes.reduce((total, joke) => total + joke.comments.length, 0)}
+              {totalComments}
             </span>
           </div>
         </div>

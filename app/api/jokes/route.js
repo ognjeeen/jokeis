@@ -8,8 +8,7 @@ export const GET = async (request) => {
   try {
     await connectDB();
 
-    const jokes = await Joke.find({});
-
+    const totalUsers = await User.countDocuments();
     const totalLikes = await Joke.aggregate([
       {
         $group: {
@@ -18,13 +17,29 @@ export const GET = async (request) => {
         },
       },
     ]);
+    const totalComments = await Joke.aggregate([
+      {
+        $group: {
+          _id: null,
+          totalComments: { $sum: { $size: '$comments' } },
+        },
+      },
+    ]);
 
-    const totalUsers = await User.countDocuments();
+    // Pagination functionality
+    const page = request.nextUrl.searchParams.get('page') || 1;
+    const pageSize = request.nextUrl.searchParams.get('pageSize') || 3;
+    const skip = (page - 1) * pageSize;
+    const total = await Joke.countDocuments({});
+
+    const jokes = await Joke.find({}).skip(skip).limit(pageSize);
 
     const responseData = {
-      jokes: jokes,
-      totalLikes: totalLikes.length > 0 ? totalLikes[0].totalLikes : 0,
-      totalUsers: totalUsers,
+      jokes,
+      total,
+      totalLikes: totalLikes[0].totalLikes,
+      totalComments: totalComments[0].totalComments,
+      totalUsers,
     };
 
     return new Response(JSON.stringify(responseData), {
