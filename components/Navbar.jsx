@@ -38,7 +38,7 @@ const Navbar = () => {
     };
 
     RandomJoke();
-  }, []);
+  }, [randomJokeId]);
 
   return (
     <nav className="p-5 shadow-md">

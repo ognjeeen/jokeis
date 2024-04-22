@@ -51,7 +51,12 @@ const JokePage = () => {
     );
   }
 
-  // joke.comments.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  let sortedComments = [];
+  if (joke && joke.comments) {
+    sortedComments = joke.comments.sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+  }
 
   return (
     <>
@@ -93,10 +98,6 @@ const JokePage = () => {
                     />
                     <span className="text-lg">{joke.author}</span>
                   </div>
-
-                  {/* <div className="text-gray-600 mt-2 ">
-                    <span> #{joke.category}</span>
-                  </div> */}
                 </div>
 
                 {/* Joke Description */}
@@ -121,6 +122,7 @@ const JokePage = () => {
                       id="content"
                       name="content"
                       placeholder="Enter your comment"
+                      required
                     ></textarea>
                     <button
                       className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-2 rounded-full focus:outline-none focus:shadow-outline flex items-center justify-center h-full"
@@ -133,7 +135,7 @@ const JokePage = () => {
 
                 {/* Comment section */}
                 <ul>
-                  {joke.comments.map((comment, index) => (
+                  {sortedComments.map((comment, index) => (
                     <li
                       key={index}
                       className="mb-6 shadow appearance-none rounded-xl py-2 px-3 relative"
