@@ -32,8 +32,6 @@ const LikedJokesPage = () => {
     fetchLikedJokes();
   }, []);
 
-  console.log(jokes);
-
   return loading ? (
     <Spinner loading={loading} />
   ) : (

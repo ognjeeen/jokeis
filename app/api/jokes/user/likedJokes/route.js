@@ -20,8 +20,6 @@ export const GET = async () => {
 
     const likedJokes = await Joke.find({ _id: { $in: user.likedJokes } });
 
-    console.log(likedJokes);
-
     return new Response(JSON.stringify(likedJokes), { status: 200 });
   } catch (error) {
     console.log(error);

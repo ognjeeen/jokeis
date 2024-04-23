@@ -49,8 +49,6 @@ const JokesPage = () => {
     setPage(newPage);
   };
 
-  console.log(totalItems);
-
   // Sort jokes by date
   jokes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 

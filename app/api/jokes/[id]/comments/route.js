@@ -12,7 +12,6 @@ export const POST = async (request, { params }) => {
     }
 
     const { userId, ownerImage, ownerName } = sessionUser;
-    console.log(ownerName);
 
     const formData = await request.formData();
 
