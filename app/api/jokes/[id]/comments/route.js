@@ -13,11 +13,10 @@ export const POST = async (request, { params }) => {
 
     const { userId, ownerImage, ownerName } = sessionUser;
 
-    const formData = await request.formData();
+    const { content } = await request.json();
 
-    // Create jokeData object from database
     const jokeCommentData = {
-      content: formData.get('content'),
+      content,
       owner: userId,
       ownerName,
       ownerImage,
@@ -35,7 +34,7 @@ export const POST = async (request, { params }) => {
       return new Response('Joke not found', { status: 404 });
     }
 
-    return Response.redirect(`${process.env.NEXTAUTH_URL}/jokes/${jokeId}`);
+    return new Response('Comment added successfully');
   } catch (error) {
     console.log(error);
     return new Response('Failed to add comment', { status: 500 });

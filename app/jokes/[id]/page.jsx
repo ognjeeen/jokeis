@@ -9,9 +9,14 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FaArrowLeft, FaPaperPlane } from 'react-icons/fa';
+import { useSession } from 'next-auth/react';
+import { toast } from 'react-toastify';
 
 const JokePage = () => {
   const { id } = useParams();
+
+  const { data: session } = useSession();
+  const userId = session?.user?.id;
 
   const [joke, setJoke] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -19,12 +24,46 @@ const JokePage = () => {
   const [jokeCommentData, setJokeCommentData] = useState({
     content: '',
   });
+  const [commentPosted, setCommentPosted] = useState(false);
 
   const handleChange = (e) => {
     setJokeCommentData((prevComments) => ({
       ...prevComments,
       content: e.target.value,
     }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!userId) {
+      toast.error('You must be logged in to post a comment');
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/jokes/${joke._id}/comments`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          content: jokeCommentData.content,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to post comment');
+      }
+
+      toast.success('Comment posted successfully');
+      setCommentPosted(true);
+    } catch (error) {
+      console.error('Error posting comment:', error);
+      toast.error('Error posting comment');
+    }
+
+    setJokeCommentData({ content: '' });
   };
 
   useEffect(() => {
@@ -40,10 +79,11 @@ const JokePage = () => {
       }
     };
 
-    if (joke === null) {
+    if (joke === null || commentPosted) {
       fetchJokeData();
+      setCommentPosted(false);
     }
-  }, [id, joke]);
+  }, [id, joke, commentPosted]);
 
   if (!joke && !loading) {
     return (
@@ -112,8 +152,7 @@ const JokePage = () => {
                 <div>
                   <form
                     className="mb-6 flex justify-center items-center"
-                    action={`/api/jokes/${joke._id}/comments`}
-                    method="POST"
+                    onSubmit={(e) => handleSubmit(e)}
                   >
                     <textarea
                       value={jokeCommentData.content}
