@@ -28,9 +28,9 @@ const LandingPage = () => {
           <FollowButtons />
         </div>
 
-        <div className="mt-4 animate-slideInFromBottom [--slideInFromBottom:1200ms] inline-block bg-blue-600 text-white py-2 px-4 rounded-lg transition duration-300 hover:bg-blue-700 font-semibold">
+        <button className="mt-4 animate-slideInFromBottom [--slideInFromBottom:1200ms] inline-block bg-blue-600 text-white py-2 px-4 rounded-lg transition duration-300 hover:bg-blue-700 font-semibold">
           <Link href="/jokes">Show Jokes</Link>
-        </div>
+        </button>
       </div>
     </div>
   );

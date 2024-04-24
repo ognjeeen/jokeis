@@ -49,9 +49,6 @@ const JokesPage = () => {
     setPage(newPage);
   };
 
-  // Sort jokes by date
-  jokes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
   return (
     <>
       {loading ? (

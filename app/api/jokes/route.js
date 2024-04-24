@@ -32,7 +32,10 @@ export const GET = async (request) => {
     const skip = (page - 1) * pageSize;
     const total = await Joke.countDocuments({});
 
-    const jokes = await Joke.find({}).skip(skip).limit(pageSize);
+    const jokes = await Joke.find({})
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(pageSize);
 
     const responseData = {
       jokes,
