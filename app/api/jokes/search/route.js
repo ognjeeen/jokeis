@@ -1,6 +1,8 @@
 import connectDB from '@/config/database';
 import Joke from '@/models/Joke';
 
+export const dynamic = 'force-dynamic';
+
 // GET /api/jokes/search
 export const GET = async (request) => {
   try {
