@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import Spinner from '@/components/Spinner';
 import { useEffect, useState } from 'react';
 import Pagination from '@/components/Pagination';
+import JokeCategorySelector from '@/components/JokeCategorySelector';
 
 const JokesPage = () => {
   const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
@@ -57,12 +58,12 @@ const JokesPage = () => {
         <>
           <Navbar />
           <JokeStatisticCards
-            jokes={jokes}
             totalUsers={totalUsers}
             totalLikes={totalLikes}
             totalItems={totalItems}
             totalComments={totalComments}
           />
+          <JokeCategorySelector />
           <section className="px-4 py-4 mt-6">
             {jokes.length === 0 ? (
               <p className="justify-center items-center flex p-10 text-xl">

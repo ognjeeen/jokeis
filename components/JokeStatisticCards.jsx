@@ -1,7 +1,6 @@
-import { CiViewList, CiHeart, CiUser } from 'react-icons/ci';
+import { CiHeart, CiUser, CiViewList } from 'react-icons/ci';
 
 const HomePageCategories = ({
-  jokes,
   totalUsers,
   totalLikes,
   totalItems,

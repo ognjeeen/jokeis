@@ -1,9 +1,9 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { getProviders, signIn, signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { FaGoogle } from 'react-icons/fa';
-import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -41,7 +41,7 @@ const Navbar = () => {
   }, [randomJokeId]);
 
   return (
-    <nav className="p-5 shadow-md">
+    <nav className="p-2 md:p-5 shadow-md">
       <div>
         <div className="relative flex h-20 items-center">
           <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
@@ -142,6 +142,7 @@ const Navbar = () => {
                       alt=""
                       width={40}
                       height={40}
+                      priority={true}
                     />
                   </button>
                 </div>
@@ -202,20 +203,23 @@ const Navbar = () => {
 
       {/* <!-- Mobile menu, show/hide based on menu state. --> */}
       {isMobileMenuOpen && (
-        <div id="mobile-menu">
+        <div id="mobile-menu" className="justify-center flex">
           <div className="space-y-1 px-2 pb-3">
-            <Link href="/" className="flex p-1">
+            <Link href="/" className="flex p-1 justify-center">
               Home
             </Link>
-            <Link href="/jokes" className="flex p-1">
+            <Link href="/jokes" className="flex p-1 justify-center">
               Jokes
             </Link>
-            <Link href={`/jokes/${randomJokeId}`} className="flex p-1">
+            <Link
+              href={`/jokes/${randomJokeId}`}
+              className="flex p-1 justify-center"
+            >
               Random Joke
             </Link>
 
             {session && (
-              <Link href="/jokes/add" className="flex p-1">
+              <Link href="/jokes/add" className="flex p-1 justify-center">
                 Post New Joke
               </Link>
             )}
