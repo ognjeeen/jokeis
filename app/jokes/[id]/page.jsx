@@ -85,6 +85,44 @@ const JokePage = () => {
     }
   }, [id, joke, commentPosted]);
 
+  const handleDeleteJoke = async (jokeId, commentId) => {
+    const confirmed = window.confirm(
+      'Are you sure you want to delete this comment?'
+    );
+
+    console.log(commentId);
+    console.log(jokeId);
+
+    if (!confirmed) return;
+
+    try {
+      const res = await fetch(`/api/jokes/${jokeId}/comments`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          commentId,
+          jokeId,
+        }),
+      });
+
+      if (res.ok) {
+        setJoke((prevJoke) => ({
+          ...prevJoke,
+          comments: prevJoke.comments.filter((c) => c._id !== commentId),
+        }));
+
+        toast.success('Comment deleted');
+      } else {
+        toast.error('Failed to delete comment');
+      }
+    } catch (error) {
+      console.error('Error deleting comment:', error);
+      toast.error('Failed to delete comment');
+    }
+  };
+
   if (!joke && !loading) {
     return (
       <h1 className="text-center text-2xl font-bold mt-10">Joke Not Found</h1>
@@ -186,6 +224,7 @@ const JokePage = () => {
                           height={40}
                           className="h-8 w-8 rounded-full mr-2"
                           alt=""
+                          priority={true}
                         />
                         <div>
                           <p>
@@ -197,6 +236,11 @@ const JokePage = () => {
                       <p className="mt-4 text-gray-300">
                         {new Date(comment.createdAt).toLocaleString()}
                       </p>
+                      <button
+                        onClick={() => handleDeleteJoke(joke._id, comment._id)}
+                      >
+                        Delete comment
+                      </button>
                     </li>
                   ))}
                 </ul>
