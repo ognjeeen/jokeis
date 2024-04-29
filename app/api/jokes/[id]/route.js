@@ -2,6 +2,8 @@ import connectDB from '@/config/database';
 import Joke from '@/models/Joke';
 import { getSessionUser } from '@/utils/getSessionUser';
 
+export const dynamic = 'force-dynamic';
+
 // GET /api/joke/:id
 export const GET = async (request, { params }) => {
   try {
@@ -87,7 +89,6 @@ export const PUT = async (request, { params }) => {
       category: existingJoke.category,
       description: formData.get('description'),
       author: existingJoke.author,
-      likes: 0,
       owner: userId,
     };
 
