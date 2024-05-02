@@ -153,9 +153,9 @@ const JokePage = () => {
             </div>
           </section>
 
-          <div className="relative flex justify-center p-2">
+          <div className="relative flex justify-center p-4 lg:p-2">
             {/* Joke Card */}
-            <div className="rounded-xl shadow-md xl:w-3/5 lg:w-4/5 md:w-5/6 sm:w-5/6 mb-5 border relative">
+            <div className="rounded-xl w-full lg:w-4/6 xl:w-3/6 shadow-md mb-5 border relative">
               <div className="text-gray-300 absolute top-2 right-1/2 transform translate-x-1/2 whitespace-nowrap">
                 {new Date(joke.createdAt).toLocaleString()}
               </div>
