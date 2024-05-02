@@ -86,7 +86,7 @@ const JokeEditForm = () => {
               onChange={handleChange}
               id="category"
               name="category"
-              className="border rounded w-full py-2 px-3"
+              className="border rounded w-full py-2 px-3 disabled:bg-slate-100 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
               required
               disabled
             >
@@ -132,7 +132,7 @@ const JokeEditForm = () => {
               type="text"
               id="author"
               name="author"
-              className="border rounded w-full py-2 px-3"
+              className="border rounded w-full py-2 px-3 disabled:bg-slate-100 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
               placeholder="Enter your name (Joke will be posted under this name)"
               value={fields.author}
               onChange={handleChange}

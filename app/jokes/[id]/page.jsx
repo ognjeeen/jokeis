@@ -4,12 +4,12 @@ import LikeButton from '@/components/LikeButton';
 import Navbar from '@/components/Navbar';
 import Spinner from '@/components/Spinner';
 import { fetchJoke } from '@/utils/request';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FaArrowLeft, FaPaperPlane } from 'react-icons/fa';
-import { useSession } from 'next-auth/react';
 import { toast } from 'react-toastify';
 
 const JokePage = () => {
@@ -115,10 +115,10 @@ const JokePage = () => {
 
         toast.success('Comment deleted');
       } else {
-        toast.error('Failed to delete comment');
+        toast.error('You are not author of this comment');
       }
     } catch (error) {
-      console.error('Error deleting comment:', error);
+      console.error('Error deleting comment');
       toast.error('Failed to delete comment');
     }
   };
@@ -236,11 +236,30 @@ const JokePage = () => {
                       <p className="mt-4 text-gray-300">
                         {new Date(comment.createdAt).toLocaleString()}
                       </p>
-                      <button
-                        onClick={() => handleDeleteJoke(joke._id, comment._id)}
-                      >
-                        Delete comment
-                      </button>
+                      {userId && (
+                        <button
+                          onClick={() =>
+                            handleDeleteJoke(joke._id, comment._id)
+                          }
+                          className="absolute right-4 top-4 hover:text-red-500"
+                          title="Delete comment"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-6 h-6"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                            />
+                          </svg>
+                        </button>
+                      )}
                     </li>
                   ))}
                 </ul>

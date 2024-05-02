@@ -1,7 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
-import { FaArrowLeft } from 'react-icons/fa';
-import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 const JokeAddForm = () => {
   const [mounted, setMounted] = useState(false);
@@ -27,12 +25,6 @@ const JokeAddForm = () => {
   return (
     mounted && (
       <>
-        <Link
-          href="/jokes"
-          className="text-blue-500 hover:text-blue-600 flex items-center"
-        >
-          <FaArrowLeft className="mr-2" /> Back To All Jokes
-        </Link>
         <div>
           <form action="/api/jokes" method="POST">
             <h2 className="text-3xl text-center font-semibold mb-6">

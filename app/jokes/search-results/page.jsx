@@ -49,13 +49,12 @@ const SearchResultsPage = () => {
         >
           <FaArrowLeft className="mr-2" /> Back To All Jokes
         </Link>
-        <h1 className="text-2xl mb-6 text-center">
+        <h1 className="md:text-2xl md:mt-0 mb-6 text-center text-xl mt-4">
           Search results for{' '}
-          <span className="text-2xl font-semibold">#{jokeCategory}</span>{' '}
-          category
+          <span className="font-semibold">#{jokeCategory}</span> category
         </h1>
         {jokes.length === 0 ? (
-          <p className="justify-center items-center flex p-10 text-xl">
+          <p className="justify-center items-center flex p-10 text-xl text-nowrap">
             No search results found
           </p>
         ) : (
