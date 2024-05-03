@@ -173,6 +173,7 @@ const JokePage = () => {
                       height={40}
                       className="h-8 w-8 rounded-full mr-2"
                       alt=""
+                      priority={true}
                     />
                     <span className="text-lg">{joke.author}</span>
                   </div>

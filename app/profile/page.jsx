@@ -84,14 +84,16 @@ const ProfilePage = () => {
             <div className="md:flex md:flex-col md:items-center">
               <div className="xl:w-2/4 md:w-2/3 flex-shrink-0 mb-6">
                 <div className="mb-4 flex justify-center">
-                  <Image
-                    className="rounded-full"
-                    src={profileImage}
-                    width={150}
-                    height={150}
-                    alt="User"
-                    priority={true}
-                  />
+                  {profileImage && (
+                    <Image
+                      className="rounded-full"
+                      src={profileImage}
+                      width={150}
+                      height={150}
+                      alt="User"
+                      priority={true}
+                    />
+                  )}
                 </div>
                 <div className="text-center">
                   <h2 className="text-xl md:text-2xl mb-4 rounded-xl p-3 shadow-md">
