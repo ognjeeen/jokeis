@@ -29,7 +29,7 @@ const LandingPage = () => {
         </div>
 
         <Link href="/jokes">
-          <button className="mt-4 animate-slideInFromBottom [--slideInFromBottom:1100ms] inline-block bg-blue-600 text-white py-2 px-4 rounded-lg transition duration-300 hover:bg-blue-700 font-semibold">
+          <button className="mt-4 animate-slideInFromBottom [--slideInFromBottom:1100ms] inline-block bg-blue-600 text-white py-3 px-6 rounded-lg transition duration-300 hover:bg-blue-700 font-semibold">
             Show Jokes
           </button>
         </Link>

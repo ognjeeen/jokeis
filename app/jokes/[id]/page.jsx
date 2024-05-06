@@ -237,12 +237,12 @@ const JokePage = () => {
                       <p className="mt-4 text-gray-300">
                         {new Date(comment.createdAt).toLocaleString()}
                       </p>
-                      {userId && (
+                      {userId && userId === comment.owner && (
                         <button
                           onClick={() =>
                             handleDeleteJoke(joke._id, comment._id)
                           }
-                          className="absolute right-4 top-4 hover:text-red-500"
+                          className="absolute right-4 top-4"
                           title="Delete comment"
                         >
                           <svg
@@ -251,7 +251,7 @@ const JokePage = () => {
                             viewBox="0 0 24 24"
                             strokeWidth={1.5}
                             stroke="currentColor"
-                            className="w-6 h-6"
+                            className="w-6 h-6 text-gray-700 hover:text-red-500"
                           >
                             <path
                               strokeLinecap="round"
