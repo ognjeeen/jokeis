@@ -19,7 +19,6 @@ export const GET = async (request) => {
     }
 
     const jokes = await Joke.find(query);
-    console.log(jokeCategory);
 
     return new Response(JSON.stringify(jokes), {
       status: 200,

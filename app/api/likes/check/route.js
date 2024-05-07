@@ -17,7 +17,6 @@ export const POST = async (request) => {
 
     const { userId } = sessionUser;
 
-    // Find user in database
     const user = await User.findOne({ _id: userId });
 
     // Check if user already liked the joke

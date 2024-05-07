@@ -1,8 +1,8 @@
 'use client';
-import { useState, useEffect } from 'react';
-import JokeCard from '@/components/JokeCard';
 import Spinner from '@/app/loading';
+import JokeCard from '@/components/JokeCard';
 import Navbar from '@/components/Navbar';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 const LikedJokesPage = () => {

@@ -1,8 +1,8 @@
 'use client';
-import { FaInstagram, FaGithub } from 'react-icons/fa';
-import { FiGithub } from 'react-icons/fi';
-import { FaXTwitter } from 'react-icons/fa6';
 import { CiLinkedin } from 'react-icons/ci';
+import { FaInstagram } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
+import { FiGithub } from 'react-icons/fi';
 
 const FollowButtons = () => {
   return (

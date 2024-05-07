@@ -1,6 +1,6 @@
 import JokeEditForm from '@/components/JokeEditForm';
-import { FaArrowLeft } from 'react-icons/fa';
 import Link from 'next/link';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const JokeEditPage = () => {
   return (

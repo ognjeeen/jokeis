@@ -90,9 +90,6 @@ const JokePage = () => {
       'Are you sure you want to delete this comment?'
     );
 
-    console.log(commentId);
-    console.log(jokeId);
-
     if (!confirmed) return;
 
     try {

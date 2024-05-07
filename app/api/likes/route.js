@@ -1,6 +1,6 @@
 import connectDB from '@/config/database';
-import User from '@/models/User';
 import Joke from '@/models/Joke';
+import User from '@/models/User';
 import { getSessionUser } from '@/utils/getSessionUser';
 
 export const dynamic = 'force-dynamic';
@@ -18,7 +18,6 @@ export const POST = async (request) => {
 
     const { userId } = sessionUser;
 
-    // Find user in database
     const user = await User.findOne({ _id: userId });
 
     // Check if user already liked the joke

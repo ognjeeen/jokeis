@@ -44,8 +44,6 @@ export const POST = async (request, { params }) => {
 export const DELETE = async (request) => {
   try {
     const { jokeId, commentId } = await request.json();
-    console.log('This is joke id', jokeId);
-    console.log('This is comment id', commentId);
 
     const sessionUser = await getSessionUser();
     if (!sessionUser || !sessionUser.userId) {

@@ -1,8 +1,8 @@
 'use client';
-import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { toast } from 'react-toastify';
+import { useEffect, useState } from 'react';
 import { FcLike, FcLikePlaceholder } from 'react-icons/fc';
+import { toast } from 'react-toastify';
 
 const LikeButton = ({ joke, setJoke }) => {
   const { data: session } = useSession();

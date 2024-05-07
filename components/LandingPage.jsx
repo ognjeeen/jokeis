@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import FollowButtons from '@/components/FollowButtons';
+import Link from 'next/link';
 
 const LandingPage = () => {
   return (

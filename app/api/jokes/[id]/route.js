@@ -29,7 +29,6 @@ export const DELETE = async (request, { params }) => {
 
     const sessionUser = await getSessionUser();
 
-    // Check for session
     if (!sessionUser || !sessionUser.userId) {
       return new Response('User ID is required', { status: 401 });
     }
@@ -42,7 +41,6 @@ export const DELETE = async (request, { params }) => {
 
     if (!joke) return new Response('Joke Not Found', { status: 404 });
 
-    // Verify ownership
     if (joke.owner.toString() !== userId) {
       return new Response('Unauthorized', { status: 401 });
     }
@@ -79,7 +77,6 @@ export const PUT = async (request, { params }) => {
       return new Response('Joke does not exist', { status: 404 });
     }
 
-    // Verify ownership
     if (existingJoke.owner.toString() !== userId) {
       return new Response('Unauthorized', { status: 401 });
     }

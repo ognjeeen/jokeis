@@ -1,11 +1,11 @@
 'use client';
-import JokeStatisticCards from '@/components/JokeStatisticCards';
 import JokeCard from '@/components/JokeCard';
+import JokeCategorySelector from '@/components/JokeCategorySelector';
+import JokeStatisticCards from '@/components/JokeStatisticCards';
 import Navbar from '@/components/Navbar';
+import Pagination from '@/components/Pagination';
 import Spinner from '@/components/Spinner';
 import { useEffect, useState } from 'react';
-import Pagination from '@/components/Pagination';
-import JokeCategorySelector from '@/components/JokeCategorySelector';
 
 const JokesPage = () => {
   const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
