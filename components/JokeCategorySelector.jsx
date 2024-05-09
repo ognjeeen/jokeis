@@ -1,6 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import RandomJoke from './RandomJoke';
 
 const JokeCategorySelector = () => {
   const [jokeCategory, setJokeCategory] = useState('All');
@@ -47,6 +48,8 @@ const JokeCategorySelector = () => {
           >
             Search
           </button>
+
+          <RandomJoke />
         </div>
       </div>
     </form>

@@ -12,7 +12,6 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [providers, setProviders] = useState(null);
-  const [randomJokeId, setRandomJokeId] = useState(null);
 
   useEffect(() => {
     const setAuthProviders = async () => {
@@ -22,23 +21,6 @@ const Navbar = () => {
 
     setAuthProviders();
   }, []);
-
-  useEffect(() => {
-    const RandomJoke = async () => {
-      try {
-        const res = await fetch('/api/jokes/random');
-
-        if (res.status === 200) {
-          const data = await res.json();
-          setRandomJokeId(data._id);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    RandomJoke();
-  }, [randomJokeId]);
 
   return (
     <nav className="p-2 md:p-5 shadow-md">
@@ -88,14 +70,12 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:block">
-            <Link href={`/jokes`} className="text-lg m-10">
+            <Link href={`/jokes`} className="text-lg">
               All Jokes
             </Link>
-            <Link href={`/jokes/${randomJokeId}`} className="text-lg">
-              Random Joke
-            </Link>
+
             {session && (
-              <Link href="/jokes/add" className="m-10 text-lg">
+              <Link href="/jokes/add" className="p-6 text-lg">
                 Post New Joke
               </Link>
             )}
@@ -204,22 +184,16 @@ const Navbar = () => {
       {/* <!-- Mobile menu, show/hide based on menu state. --> */}
       {isMobileMenuOpen && (
         <div id="mobile-menu" className="justify-center flex">
-          <div className="space-y-1 px-2 pb-3">
-            <Link href="/" className="flex p-1 justify-center">
+          <div className="space-y-2 px-2 pb-3">
+            <Link href="/" className="flex justify-center">
               Home
             </Link>
-            <Link href="/jokes" className="flex p-1 justify-center">
+            <Link href="/jokes" className="flex justify-center">
               Jokes
-            </Link>
-            <Link
-              href={`/jokes/${randomJokeId}`}
-              className="flex p-1 justify-center"
-            >
-              Random Joke
             </Link>
 
             {session && (
-              <Link href="/jokes/add" className="flex p-1 justify-center">
+              <Link href="/jokes/add" className="flex justify-center">
                 Post New Joke
               </Link>
             )}

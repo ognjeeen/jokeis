@@ -4,6 +4,7 @@ import JokeCategorySelector from '@/components/JokeCategorySelector';
 import JokeStatisticCards from '@/components/JokeStatisticCards';
 import Navbar from '@/components/Navbar';
 import Pagination from '@/components/Pagination';
+import RandomJoke from '@/components/RandomJoke';
 import Spinner from '@/components/Spinner';
 import { useEffect, useState } from 'react';
 

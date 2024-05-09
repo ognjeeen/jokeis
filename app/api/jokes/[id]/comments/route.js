@@ -51,7 +51,6 @@ export const DELETE = async (request) => {
     }
 
     const userId = sessionUser.user.id;
-    console.log('This is user id', userId);
 
     await connectDB();
 
