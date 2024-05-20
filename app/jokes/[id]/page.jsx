@@ -85,7 +85,7 @@ const JokePage = () => {
     }
   }, [id, joke, commentPosted]);
 
-  const handleDeleteJoke = async (jokeId, commentId) => {
+  const handleDeleteComment = async (jokeId, commentId) => {
     const confirmed = window.confirm(
       'Are you sure you want to delete this comment?'
     );
@@ -237,7 +237,7 @@ const JokePage = () => {
                       {userId && userId === comment.owner && (
                         <button
                           onClick={() =>
-                            handleDeleteJoke(joke._id, comment._id)
+                            handleDeleteComment(joke._id, comment._id)
                           }
                           className="absolute right-4 top-4"
                           title="Delete comment"
